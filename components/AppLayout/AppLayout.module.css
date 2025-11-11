@@ -1,9 +1,0 @@
-.AppLayoutNavbar {
-    --app-shell-navbar-transform: translateX(calc(var(--app-shell-navbar-width) * -0.8)) !important;
-    --app-shell-navbar-width-collapsed: calc(var(--app-shell-navbar-width) * 0.2) !important;
-    --app-shell-navbar-offset: var(--app-shell-navbar-width-collapsed) !important;
-}
-
-.AppLayoutNavbarCollapsed {
-    align-items: flex-end;
-}
