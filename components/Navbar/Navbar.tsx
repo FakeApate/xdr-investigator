@@ -10,7 +10,7 @@ import {
   IconSettings,
   IconSwitchHorizontal,
 } from '@tabler/icons-react';
-import { Group, NavLink } from '@mantine/core';
+import { Group, NavLink, Space } from '@mantine/core';
 import classes from './Navbar.module.css';
 import NavbarToggle from '../NavbarToggle/NavbarToggle';
 
@@ -46,12 +46,39 @@ export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boo
     <nav className={classes.navbar}
       data-collapsed={navbarCollapsed || undefined}
     >
-      <div style={{ flex: 1 }}>
-        <Group className={classes.header} wrap="nowrap" style={{
-          justifyContent: 'right'
+      <div className={classes.header}>
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between", /* pushes them to opposite sides */
+          alignItems: "center",
+
         }}>
-          <NavbarToggle navbarCollapsed={navbarCollapsed} toggleEvent={toggleNavbar} />
-        </Group>
+          <div style={{
+            height: navbarCollapsed ? '0px' : 'fit-content',
+            width: navbarCollapsed ? '0px' : 'fit-content',
+            overflow: 'hidden',
+            marginLeft: navbarCollapsed ? '0px' : '12px',
+            transition: 'margin-left var(--app-shell-transition-duration) ease',
+            textWrap: 'nowrap',
+          }}>
+            <span style={{
+              fontWeight: 'bold',
+              fontSize: '1.2em',
+              opacity: navbarCollapsed ? 0 : 1,
+              transition: 'opacity calc(var(--app-shell-transition-duration)/2) ease-in-out calc(var(--app-shell-transition-duration)/2)',
+
+            }}>
+              Lorem Ipsum
+            </span>
+          </div>
+          <div style={{}}>
+            <NavbarToggle navbarCollapsed={navbarCollapsed} toggleEvent={toggleNavbar} />
+          </div>
+          {navbarCollapsed && <Space w={1} />}
+        </div>
+      </div>
+      <div style={{ flex: 1 }}>
+
         {links}
       </div >
 

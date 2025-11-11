@@ -1,15 +1,13 @@
 .navbar {
   height: 100%;
   width: 100%;
-  padding: var(--mantine-spacing-md);
   display: flex;
   flex-direction: column;
 }
 
 
 .header {
-  padding-bottom: var(--mantine-spacing-xs);
-  margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
+  margin-bottom: calc(var(--mantine-spacing-xs));
   border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
 
