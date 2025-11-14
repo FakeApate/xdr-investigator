@@ -1,3 +1,4 @@
+import { permanentRedirect } from "next/navigation"
 export default function HomePage() {
-  return <div>Home page</div>;
+  permanentRedirect('/play')
 }

@@ -1,0 +1,48 @@
+.navbar {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.header {
+  margin-bottom: calc(var(--mantine-spacing-xs));
+  border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  height: 45px;
+}
+
+.footer {
+  padding-top: var(--mantine-spacing-md);
+  margin-top: var(--mantine-spacing-md);
+  border-top: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}
+
+
+
+
+.labelWrap {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 1;
+  transition:
+    opacity 160ms var(--ease);
+  transition-delay: 80ms, 120ms;
+  white-space: nowrap;
+}
+
+.labelHidden {
+  max-width: 0;
+  opacity: 0;
+  transition-delay: 0ms, 0ms;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .sidebar,
+  .labelWrap {
+    transition: none;
+  }
+}

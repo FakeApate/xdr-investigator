@@ -1,0 +1,10 @@
+.boardCell {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--mantine-color-default-border);
+}
+.boardCell:hover {
+  background-color: var(--mantine-color-default-hover);
+  cursor: pointer;
+}
