@@ -24,7 +24,7 @@ export default function AppLayout({ children }: { children: React.ReactElement }
         }}>
         <Navbar navbarCollapsed={navbarCollapsed} toggleNavbar={toggle} />
       </AppShell.Navbar>
-      <AppShell.Main >{children}</AppShell.Main>
+      <AppShell.Main flex={1} display="flex">{children}</AppShell.Main>
     </AppShell>
   )
 }

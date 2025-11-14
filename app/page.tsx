@@ -1,8 +1,4 @@
-import AppLayout from "../components/AppLayout/AppLayout";
-
+import { permanentRedirect } from "next/navigation"
 export default function HomePage() {
-  return (
-      <div>MainPage</div>
-  )
-  
+  permanentRedirect('/play')
 }

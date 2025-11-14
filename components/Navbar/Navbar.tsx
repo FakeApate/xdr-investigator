@@ -1,43 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  Icon2fa,
-  IconBellRinging,
-  IconDatabaseImport,
-  IconFingerprint,
-  IconKey,
   IconLogout,
-  IconReceipt2,
-  IconSettings,
   IconSwitchHorizontal,
+  IconMoon,
+  IconSun
 } from '@tabler/icons-react';
-import { Group, NavLink, Space } from '@mantine/core';
+import { Group, NavLink, Space, useMantineTheme } from '@mantine/core';
 import classes from './Navbar.module.css';
 import NavbarToggle from '../NavbarToggle/NavbarToggle';
-
-const data = [
-  { link: '', label: 'Notifications', icon: IconBellRinging },
-  { link: '', label: 'Billing', icon: IconReceipt2 },
-  { link: '', label: 'Security', icon: IconFingerprint },
-  { link: '', label: 'SSH Keys', icon: IconKey },
-  { link: '', label: 'Databases', icon: IconDatabaseImport },
-  { link: '', label: 'Authentication', icon: Icon2fa },
-  { link: '', label: 'Other Settings', icon: IconSettings },
-];
-
+import { pages } from '../../pages';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { useColorScheme } from '@mantine/hooks';
 export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boolean, toggleNavbar: () => void }) {
-  const [active, setActive] = useState('Billing');
-  const links = data.map((item) => (
+  const pathname = usePathname();
+  const [theme, setTheme] = useState('light');
+  const links = pages.map((item) => (
     <NavLink
-      data-active={item.label === active || undefined}
+      data-active={item.link === pathname || undefined}
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
       href={item.link}
       label={item.label}
       leftSection={<item.icon size={25} stroke={1.5} />}
       noWrap={true}
+      component={Link}
     />
 
   ));
@@ -85,10 +71,26 @@ export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boo
 
       <div className={classes.footer}>
         <NavLink
+          onClick={(event) => {
+            event.preventDefault();
+            const theme = document.documentElement.getAttribute('data-mantine-color-scheme');
+            setTheme(theme === 'dark' ? 'light' : 'dark');
+            if (theme === 'dark') {
+              document.documentElement.setAttribute('data-mantine-color-scheme', 'light');
+            } else {
+              document.documentElement.setAttribute('data-mantine-color-scheme', 'dark');
+            }
+          }}
+          href="#"
+          leftSection={theme === 'dark' ? <IconSun size={24} stroke={1.5} /> : <IconMoon size={24} stroke={1.5} />}
+          label="Toggle theme"
+          noWrap={true} />
+        <NavLink
           onClick={(event) => event.preventDefault()}
           href="#"
           leftSection={<IconSwitchHorizontal size={24} stroke={1.5} />}
           label="Change account"
+          disabled={true}
           noWrap={true} />
 
         <NavLink
@@ -96,6 +98,7 @@ export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boo
           href="#"
           leftSection={<IconLogout size={24} stroke={1.5} />}
           label="Logout"
+          disabled={true}
           noWrap={true}
         />
       </div>
