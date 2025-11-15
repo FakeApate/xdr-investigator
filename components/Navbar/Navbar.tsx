@@ -11,10 +11,11 @@ import NavbarToggle from '../NavbarToggle/NavbarToggle';
 import { pages } from '../../pages';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useColorScheme } from '@mantine/hooks';
+import { useLocalStorage } from '@mantine/hooks';
 export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boolean, toggleNavbar: () => void }) {
   const pathname = usePathname();
-  const [theme, setTheme] = useState('light');
+
+  const [theme, setTheme] = useLocalStorage<'light' | 'dark'>({ key: 'color-scheme', defaultValue: 'light' });
   const links = pages.map((item) => (
     <NavLink
       data-active={item.link === pathname || undefined}

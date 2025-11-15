@@ -1,9 +1,16 @@
-import { SimpleGrid } from "@mantine/core";
-import { useHover } from "@mantine/hooks";
-import { useEffect, useState } from "react";
+import superjson from 'superjson';
+import { useEffect } from "react";
 import classes from './Board.module.css';
+import { useLocalStorage } from '@mantine/hooks';
+
 export default function Board({ board, downloadRef }: { board: string, downloadRef: React.RefObject<() => void> }) {
-  const [boardGrid, setBoardGrid] = useState<string[][]>([]);
+
+  const [boardGrid, setBoardGrid] = useLocalStorage<string[][]>({
+    key: 'page-play-board-grid',
+    defaultValue: [[]],
+    serialize: superjson.stringify,
+    deserialize: (str) => str === undefined ? [[]] : superjson.parse(str)
+  });
   const rows = board.replaceAll(' ', '').split('\n');
   const gridRows = rows.length;
   const gridCols = rows[0].length || 0;

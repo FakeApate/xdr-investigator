@@ -1,9 +1,10 @@
 "use client";
-import { useState } from 'react';
 import { Tabs } from '@mantine/core';
+import { useLocalStorage } from '@mantine/hooks';
 
 export default function PlayPage() {
-  const [activeTab, setActiveTab] = useState<string | null>('board');
+
+  const [activeTab, setActiveTab] = useLocalStorage<string | null>({ key: 'page-play-active-tab', defaultValue: 'board' });
 
   return (
     <Tabs value={activeTab} onChange={setActiveTab}>
