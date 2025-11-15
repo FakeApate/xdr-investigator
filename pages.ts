@@ -1,4 +1,4 @@
-import { IconDeviceGamepad, IconFilePencil, IconBong } from '@tabler/icons-react';
+import { IconDeviceGamepad, IconFilePencil, IconBong, IconSettings } from '@tabler/icons-react';
 
 export type NavPage = {
   link: string;
@@ -10,4 +10,5 @@ export const pages: NavPage[] = [
   { link: '/play', label: 'Play', icon: IconDeviceGamepad },
   { link: '/boards', label: 'Boards', icon: IconFilePencil },
   { link: '/playground', label: 'Playground', icon: IconBong },
+  { link: '/settings', label: 'Settings', icon: IconSettings },
 ];

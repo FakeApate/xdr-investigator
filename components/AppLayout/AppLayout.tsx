@@ -5,7 +5,7 @@ import { Navbar } from "../Navbar/Navbar";
 import { useLocalStorage } from '@mantine/hooks';
 
 export default function AppLayout({ children }: { children: React.ReactElement }) {
-  const [navbarCollapsed, setNavbarCollapsed] = useLocalStorage<boolean>({ key: 'app-navbar-collapsed', defaultValue: false, getInitialValueInEffect: true });
+  const [navbarCollapsed, setNavbarCollapsed] = useLocalStorage<boolean>({ key: 'app-navbar-collapsed', defaultValue: false, getInitialValueInEffect: false });
   const toggle = () => setNavbarCollapsed((c) => !c);
   return (
     <AppShell

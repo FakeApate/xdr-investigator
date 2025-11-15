@@ -4,7 +4,7 @@ import { useNetwork } from '@mantine/hooks';
 export default function NetworkStatus() {
   const networkStatus = useNetwork();
   return (
-    <Table maw={300} layout="fixed" mx="auto">
+    <Table maw={300} layout="fixed" mx="auto" mt="md" highlightOnHover>
       <Table.Thead>
         <Table.Tr>
           <Table.Th>Property</Table.Th>

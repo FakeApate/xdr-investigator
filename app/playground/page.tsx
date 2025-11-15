@@ -1,5 +1,5 @@
 "use client";
-import { Text, Code, Container, ActionIcon, Skeleton, Center, Group, useMantineTheme, AspectRatio, Button, Flex, Popover, Kbd, Space } from "@mantine/core";
+import { Text, Code, Container, ActionIcon, Skeleton, Center, Group, useMantineTheme, AspectRatio, Button, Flex, Popover, Kbd, Space, Divider } from "@mantine/core";
 import { useMove } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
 import MyDropzone from "../../components/dropzone/MyDropzone";
@@ -54,7 +54,21 @@ export default function PlaygroundPage() {
             <Popover.Dropdown>
               <Text size="xs"><Kbd>Left Click</Kbd> Toggle tile between empty and obstical.</Text>
               <Space h={10} />
+              <Divider variant="dashed" />
+              <Space h={10} />
               <Text size="xs"><Kbd>Shift</Kbd> + <Kbd>Left Click</Kbd> Cycle tile between empty, spawn, and target.</Text>
+              <Space h={10} />
+              <Divider variant="dashed" />
+              <Space h={10} />
+              <Text size="xs"><Kbd>Right Click</Kbd> Erase tile (set to empty).</Text>
+              <Space h={10} />
+              <Divider variant="dashed" />
+              <Space h={10} />
+              <Text size="xs">Hold <Kbd>Left Click</Kbd> to paint tiles.</Text>
+              <Space h={10} />
+              <Divider variant="dashed" />
+              <Space h={10} />
+              <Text size="xs"><Kbd>Right Click</Kbd> is always erase when painting.</Text>
             </Popover.Dropdown>
           </Popover>
         </div>

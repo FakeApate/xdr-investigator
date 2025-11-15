@@ -1,9 +1,15 @@
-import { Container, Fieldset, Stack, Switch, TextInput } from "@mantine/core";
+"use client";
+import { Container, Divider, Fieldset, Stack, Switch, TextInput } from "@mantine/core";
 import NetworkStatus from "../../components/NetworkStatus/NetworkStatus";
 import { useLocalStorage } from "@mantine/hooks";
 export default function SettingsPage() {
   const [wssState, setWssState] = useLocalStorage({
     key: 'settings-pekko-wss',
+    defaultValue: false
+  });
+
+  const [autoReconnect, setAutoReconnect] = useLocalStorage({
+    key: 'settings-pekko-auto-reconnect',
     defaultValue: false
   });
 
@@ -18,28 +24,38 @@ export default function SettingsPage() {
   });
   return (
     <Container>
-      <Stack>
-        <Fieldset legend="Connection Settings">
+      <Stack mt="md">
+        <Fieldset legend="Connection Settings" mt="md" style={{
+          padding: 20,
+        }}>
           <TextInput
             label="Pekko Server IP"
-            placeholder=""
             value={serverIp}
             onChange={(event) => setServerIp(event.currentTarget.value)}
-            />
-          <TextInput label="Pekko Server Port" placeholder="" />
+          />
+          <TextInput
+            label="Pekko Server Port"
+            value={serverPort}
+            onChange={(event) => setServerPort(event.currentTarget.value)}
+            mt="md"
+          />
           <Switch
             label="WSS"
             checked={wssState}
             onChange={(event) => setWssState(event.currentTarget.checked)}
-            />
-          <TextInput label="Auto Reconnect" placeholder="" />
+            mt="md"
+          />
+          <Switch
+            label="Auto Reconnect"
+            checked={autoReconnect}
+            onChange={(event) => setAutoReconnect(event.currentTarget.checked)}
+            mt="md"
+          />
+          <Divider mt="lg" mb="md" size={"sm"} />
+          <NetworkStatus />
         </Fieldset>
-        <div>Pekko Server IP</div>
-        <div>Pekko Server Port</div>
-        <div>WSS</div>
-        <div>Auto Reconnect</div>
       </Stack>
-      <NetworkStatus />
+
     </Container>
   );
 }

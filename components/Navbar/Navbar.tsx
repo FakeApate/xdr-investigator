@@ -3,19 +3,26 @@ import {
   IconLogout,
   IconSwitchHorizontal,
   IconMoon,
-  IconSun
+  IconSun,
+  IconCircleHalf,
+  IconLoader2
 } from '@tabler/icons-react';
-import { Group, NavLink, Space, useMantineTheme } from '@mantine/core';
+import { ActionIcon, Group, NavLink, Space, useComputedColorScheme, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import classes from './Navbar.module.css';
 import NavbarToggle from '../NavbarToggle/NavbarToggle';
 import { pages } from '../../pages';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useLocalStorage } from '@mantine/hooks';
+
+
+
+
 export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boolean, toggleNavbar: () => void }) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  const [theme, setTheme] = useLocalStorage<'light' | 'dark'>({ key: 'color-scheme', defaultValue: 'light' });
   const links = pages.map((item) => (
     <NavLink
       data-active={item.link === pathname || undefined}
@@ -28,6 +35,26 @@ export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boo
     />
 
   ));
+
+  function ColorSchemeToggle() {
+    const { setColorScheme } = useMantineColorScheme();
+    const computedColorScheme = useComputedColorScheme('light', {
+      getInitialValueInEffect: true,
+    });
+
+    const toggle = () => {
+      setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light');
+    };
+
+    return (
+      <NavLink aria-label="Toggle color scheme" leftSection={mounted ? computedColorScheme === 'light' ? <IconMoon /> : <IconSun /> : <IconLoader2 className="animate-spin" />} label="Toggle colors" noWrap={true} href="#" onClick={(e) => {
+        e.preventDefault();
+        toggle();
+      }}>
+      </NavLink>
+    );
+  }
+
 
   return (
     <nav className={classes.navbar}
@@ -71,21 +98,8 @@ export function Navbar({ navbarCollapsed, toggleNavbar }: { navbarCollapsed: boo
 
 
       <div className={classes.footer}>
-        <NavLink
-          onClick={(event) => {
-            event.preventDefault();
-            const theme = document.documentElement.getAttribute('data-mantine-color-scheme');
-            setTheme(theme === 'dark' ? 'light' : 'dark');
-            if (theme === 'dark') {
-              document.documentElement.setAttribute('data-mantine-color-scheme', 'light');
-            } else {
-              document.documentElement.setAttribute('data-mantine-color-scheme', 'dark');
-            }
-          }}
-          href="#"
-          leftSection={theme === 'dark' ? <IconSun size={24} stroke={1.5} /> : <IconMoon size={24} stroke={1.5} />}
-          label="Toggle theme"
-          noWrap={true} />
+
+        <ColorSchemeToggle />
         <NavLink
           onClick={(event) => event.preventDefault()}
           href="#"
