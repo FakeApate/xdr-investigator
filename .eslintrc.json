@@ -1,10 +1,7 @@
 {
   "extends": "next/core-web-vitals",
-  "ignorePatterns":[
-    "*.js",
-    "*.mjs",
-    "*.cjs"
-  ],
+  "ignorePatterns": ["*.js", "*.mjs", "*.cjs"],
+  "includes": ["src/**/*.ts", "src/**/*.tsx"],
   "rules": {
     "max-len": ["error", { "code": 80 }]
   }
