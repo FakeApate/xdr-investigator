@@ -1,9 +1,10 @@
-import { IconDeviceGamepad, IconFilePencil, IconBong, IconSettings } from '@tabler/icons-react';
+import { IconDeviceGamepad, IconFilePencil, IconBong, IconSettings, Icon, IconProps } from '@tabler/icons-react';
+import { ForwardRefExoticComponent, RefAttributes } from 'react';
 
 export type NavPage = {
   link: string;
   label: string;
-  icon: React.FC<any>;
+  icon: ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>;
 }
 
 export const pages: NavPage[] = [

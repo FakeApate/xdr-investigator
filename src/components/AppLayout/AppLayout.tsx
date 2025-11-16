@@ -2,15 +2,16 @@
 import React from "react"
 import { AppShell } from "@mantine/core"
 import { Navbar } from "@/components/Navbar/Navbar";
-import { useLocalStorage } from '@mantine/hooks';
+import { useLocalStorage, useMounted } from '@mantine/hooks';
 
 export default function AppLayout({ children }: { children: React.ReactElement }) {
   const [navbarCollapsed, setNavbarCollapsed] = useLocalStorage<boolean>({ key: 'app-navbar-collapsed', defaultValue: false, getInitialValueInEffect: false });
   const toggle = () => setNavbarCollapsed((c) => !c);
+  const mounted = useMounted();
   return (
     <AppShell
       navbar={{
-        width: navbarCollapsed ? "51px" : "200px",
+        width: mounted ? navbarCollapsed ? "51px" : "200px" : "51px",
         breakpoint: 0,
       }}
       layout="alt"

@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { IconCloudUpload, IconDownload, IconX } from '@tabler/icons-react';
 import { Button, Group, Text, useMantineTheme } from '@mantine/core';
-import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
+import { Dropzone } from '@mantine/dropzone';
 import classes from './MyDropzone.module.css';
 
-export default function MyDropzone({ board, setBoard }: { board: string, setBoard: (text: string) => void }) {
+export default function MyDropzone({ setBoard }: { setBoard: (text: string) => void }) {
   const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
 
@@ -13,8 +13,8 @@ export default function MyDropzone({ board, setBoard }: { board: string, setBoar
       openRef={openRef}
       onDrop={(files) => {
         console.log(files);
-        let file = files[0];
-        let reader = new FileReader();
+        const file = files[0];
+        const reader = new FileReader();
         reader.onload = function (e) {
           const text = e.target?.result;
           console.log(text);

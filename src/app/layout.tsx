@@ -1,5 +1,4 @@
 import "@mantine/core/styles.css";
-import React from "react";
 import {
   MantineProvider,
   ColorSchemeScript,
@@ -13,6 +12,7 @@ export const metadata = {
   description: "I am using Mantine with Next.js!",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en" {...mantineHtmlProps}>

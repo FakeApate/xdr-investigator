@@ -1,19 +1,18 @@
+"use client"
 import { useEffect, useState } from 'react';
 import {
   IconLogout,
   IconSwitchHorizontal,
   IconMoon,
   IconSun,
-  IconCircleHalf,
   IconLoader2
 } from '@tabler/icons-react';
-import { ActionIcon, Group, NavLink, Space, useComputedColorScheme, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { NavLink, Space, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
 import classes from './Navbar.module.css';
 import NavbarToggle from '@/components/NavbarToggle/NavbarToggle';
 import { pages } from '@/pages';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useLocalStorage } from '@mantine/hooks';
 
 
 

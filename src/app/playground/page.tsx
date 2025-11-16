@@ -1,14 +1,12 @@
 "use client";
-import { Text, Code, Container, ActionIcon, Skeleton, Center, Group, useMantineTheme, AspectRatio, Button, Flex, Popover, Kbd, Space, Divider } from "@mantine/core";
-import { useMove } from "@mantine/hooks";
-import { useEffect, useRef, useState } from "react";
+import { Text, Container, ActionIcon, Center, useMantineTheme, Button, Flex, Popover, Kbd, Space, Divider } from "@mantine/core";
+import { useRef, useState } from "react";
 import MyDropzone from "@/components/dropzone/MyDropzone";
 import Board from "@/components/Board/Board";
 import NewBoardModal from "@/components/Board/NewBoardModal";
 import { IconQuestionMark } from "@tabler/icons-react";
 export default function PlaygroundPage() {
   const theme = useMantineTheme();
-  const openRef = useRef<() => void>(null);
   const [board, setBoard] = useState<string>("");
   const downloadRef = useRef<() => void>(() => { });
   return (
@@ -24,7 +22,7 @@ export default function PlaygroundPage() {
           <Text fz="md" c="dimmed">Create and edit boards for your bots.</Text>
         </div>
         <Center style={{ flexGrow: 1, border: `2px dashed ${theme.colors.gray[4]}`, borderRadius: '8px', padding: '10px', overflow: 'auto' }}>
-          {board === "" && <MyDropzone board={board} setBoard={setBoard} />}
+          {board === "" && <MyDropzone setBoard={setBoard} />}
           {board !== "" && <>
 
             <Board board={board} downloadRef={downloadRef} />
