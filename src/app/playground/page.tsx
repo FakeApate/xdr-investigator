@@ -2,9 +2,9 @@
 import { Text, Code, Container, ActionIcon, Skeleton, Center, Group, useMantineTheme, AspectRatio, Button, Flex, Popover, Kbd, Space, Divider } from "@mantine/core";
 import { useMove } from "@mantine/hooks";
 import { useEffect, useRef, useState } from "react";
-import MyDropzone from "../../components/dropzone/MyDropzone";
-import Board from "../../components/Board/Board";
-import NewBoardModal from "../../components/Board/NewBoardModal";
+import MyDropzone from "@/components/dropzone/MyDropzone";
+import Board from "@/components/Board/Board";
+import NewBoardModal from "@/components/Board/NewBoardModal";
 import { IconQuestionMark } from "@tabler/icons-react";
 export default function PlaygroundPage() {
   const theme = useMantineTheme();

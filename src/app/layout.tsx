@@ -5,8 +5,8 @@ import {
   ColorSchemeScript,
   mantineHtmlProps,
 } from "@mantine/core";
-import { theme } from "../theme";
-import AppLayout from "../components/AppLayout/AppLayout";
+import { theme } from "@/theme";
+import AppLayout from "@/components/AppLayout/AppLayout";
 
 export const metadata = {
   title: "Mantine Next.js template",

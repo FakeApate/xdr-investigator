@@ -1,7 +1,7 @@
 'use client';
 import React from "react"
 import { AppShell } from "@mantine/core"
-import { Navbar } from "../Navbar/Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
 import { useLocalStorage } from '@mantine/hooks';
 
 export default function AppLayout({ children }: { children: React.ReactElement }) {
