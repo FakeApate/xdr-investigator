@@ -17,6 +17,7 @@ type LogStore = {
     entries: LogEntry[];
     nextId: number;
     maxEntries: number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     addFromPino: (logObj: any) => void;
     clearScope: (scope: string) => void;
     clearAll: () => void;
@@ -31,7 +32,7 @@ const levelMap: Record<number, LogLevelName> = {
     60: "fatal",
 };
 
-export const useLogStore = create<LogStore>((set, get) => ({
+export const useLogStore = create<LogStore>((set) => ({
     entries: [],
     nextId: 1,
     maxEntries: 500, // keep it bounded

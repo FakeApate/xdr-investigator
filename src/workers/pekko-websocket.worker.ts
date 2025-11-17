@@ -1,24 +1,22 @@
 /// <reference lib="webworker" />
 
 import type { BoardCommand } from "@/types/BoardCommand";
+import { BoardStatusResponse } from "@/types/BoardStatusResponse";
 
 export type PekkoWorkerIn =
     | { type: "INIT"; settings: { wsUrl: string } }
-    | { type: "SEND_COMMAND"; command: BoardCommand }
     | { type: "CLOSE" };
 
 export type PekkoWorkerOut =
     | { type: "OPEN" }
     | { type: "DEBUG"; message: string }
-    | { type: "MESSAGE"; data: unknown }
+    | { type: "MESSAGE"; data: BoardStatusResponse }
     | { type: "ERROR"; error: string }
     | { type: "CLOSED"; code: number; reason: string; willReconnect: boolean }
     | { type: "RECONNECTING"; attempt: number; delayMs: number };
 
 let socket: WebSocket | null = null;
 let wsUrl: string | null = null;
-let heartbeatTimer: number | null = null;
-const HEARTBEAT_INTERVAL_MS = 30_000;
 let shouldReconnect = true;
 let reconnectAttempt = 0;
 let reconnectTimer: number | null = null;
@@ -46,20 +44,9 @@ ctx.onmessage = (event: MessageEvent<PekkoWorkerIn>) => {
             break;
         }
 
-        case "SEND_COMMAND": {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                socket.send(JSON.stringify(msg.command));
-            } else {
-                // buffer commands while disconnected
-                pendingCommands.push(msg.command);
-            }
-            break;
-        }
-
         case "CLOSE": {
             shouldReconnect = false;
             clearReconnectTimer();
-            stopHeartbeat();
             if (socket) {
                 socket.close(1000, "Client closed");
                 socket = null;
@@ -68,27 +55,6 @@ ctx.onmessage = (event: MessageEvent<PekkoWorkerIn>) => {
         }
     }
 };
-
-
-
-function startHeartbeat() {
-    stopHeartbeat();
-    heartbeatTimer = setInterval(() => {
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            const payload = {
-                type: "Heartbeat",
-            };
-            socket.send(JSON.stringify(payload));
-        }
-    }, HEARTBEAT_INTERVAL_MS) as unknown as number;
-}
-
-function stopHeartbeat() {
-    if (heartbeatTimer !== null) {
-        clearInterval(heartbeatTimer);
-        heartbeatTimer = null;
-    }
-}
 
 function connect() {
     if (!wsUrl) return;
@@ -105,7 +71,6 @@ function connect() {
             reconnectAttempt = 0;
             clearReconnectTimer();
             ctx.postMessage({ type: "OPEN" } satisfies PekkoWorkerOut);
-            startHeartbeat();
             // flush queued commands
             while (pendingCommands.length > 0 && socket?.readyState === WebSocket.OPEN) {
                 const cmd = pendingCommands.shift()!;
@@ -129,7 +94,6 @@ function connect() {
         };
 
         socket.onclose = (ev) => {
-            stopHeartbeat();
             socket = null;
 
             if (shouldReconnect) {
@@ -183,11 +147,7 @@ function clearReconnectTimer() {
     }
 }
 
-function safeParseJson(data: unknown): unknown {
-    if (typeof data !== "string") return data;
-    try {
-        return JSON.parse(data);
-    } catch {
-        return data;
-    }
+function safeParseJson(data: unknown): BoardStatusResponse {
+    if (typeof data !== "string") throw new Error("Data is not a string");
+    return JSON.parse(data);
 }

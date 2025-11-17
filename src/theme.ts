@@ -1,7 +1,7 @@
 "use client";
 
-import { createTheme, MantineColorsTuple } from "@mantine/core";
-
+import { Button, createTheme, MantineColorsTuple } from "@mantine/core";
+import classes from "./theme.module.css"
 const myColor: MantineColorsTuple = [
   '#f1f4fe',
   '#e4e6ed',
@@ -17,5 +17,10 @@ const myColor: MantineColorsTuple = [
 export const theme = createTheme({
   colors: {
     myColor,
-  }
+  },
+  components: {
+    Button: Button.extend({
+      classNames: classes,
+    }),
+  },
 });

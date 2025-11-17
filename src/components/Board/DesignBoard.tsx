@@ -1,28 +1,16 @@
-import superjson from 'superjson';
 import React, { useEffect, useState } from 'react';
-import classes from './Board.module.css';
-import { useLocalStorage } from '@mantine/hooks';
+import classes from './DesignBoard.module.css';
 
-export default function Board({
-  board,
+export default function DesignBoard({
+  boardGrid,
+  setBoardGrid,
   downloadRef,
 }: {
-  board: string;
+  boardGrid: string[][]
+  setBoardGrid: (val: string[][] | ((prevState: string[][]) => string[][])) => void
   downloadRef: React.RefObject<() => void>;
 }) {
-  const [boardGrid, setBoardGrid] = useLocalStorage<string[][]>({
-    key: 'page-play-board-grid',
-    defaultValue: [[]],
-    serialize: superjson.stringify,
-    deserialize: (str) => (str === undefined ? [[]] : superjson.parse(str)),
-  });
-
   const [paintChar, setPaintChar] = useState<string | null>(null);
-
-  const rows = board.replaceAll(' ', '').split('\n');
-  const gridRows = rows.length;
-  const gridCols = rows[0]?.length || 0;
-
   const types = ['X', '_'];
   const altTypes = ['_', 'S', 'E'];
 
@@ -106,17 +94,12 @@ export default function Board({
     };
   }, [boardGrid, downloadRef]);
 
-  useEffect(() => {
-    const grid = rows.map((row) => row.split(''));
-    setBoardGrid(grid);
-  }, [board, rows, setBoardGrid]);
-
   return (
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: `repeat(${gridCols}, 20px)`,
-        gridTemplateRows: `repeat(${gridRows}, 20px)`,
+        gridTemplateColumns: `repeat(${boardGrid.length}, 20px)`,
+        gridTemplateRows: `repeat(${boardGrid.length}, 20px)`,
         gap: '2px',
         userSelect: 'none',
       }}

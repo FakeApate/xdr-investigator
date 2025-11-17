@@ -1,18 +1,17 @@
-import { useRef, useEffect } from "react";
-import PekkoClient from "./PekkoClient";
-import { BoardCommand } from "@/types/BoardCommand";
+import { useEffect, useState } from "react";
 import { getPekkoClient } from "./PekkoClientSingelton";
+import { BoardStatusResponse } from "@/types/BoardStatusResponse";
 
 export function usePekkoClient() {
-    const workerRef = useRef<PekkoClient | null>(null);
+    const [status, setStatus] = useState<BoardStatusResponse | null>(null);
 
     useEffect(() => {
-        const worker = getPekkoClient();
-        workerRef.current = worker;
-        return () => worker?.close();
+        const client = getPekkoClient();
+        if (!client) return;
+
+        const unsub = client.onStatus(setStatus);
+        return () => { unsub() };
     }, []);
 
-    return {
-        send: (payload: BoardCommand) => workerRef.current?.sendCommand(payload),
-    };
+    return { status };
 }

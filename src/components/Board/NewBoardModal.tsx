@@ -1,8 +1,8 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, NumberInput, Stack } from '@mantine/core';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
-export default function NewBoardModal({ setBoard }: { setBoard: Dispatch<SetStateAction<string>> }) {
+export default function NewBoardModal({ setBoard }: { setBoard: (text: string) => void; }) {
   const [opened, { open, close }] = useDisclosure(false);
   const [valueRows, setValueRows] = useState<string | number>('');
   const [valueColumns, setValueColumns] = useState<string | number>('');

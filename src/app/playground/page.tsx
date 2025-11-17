@@ -1,14 +1,28 @@
 "use client";
-import { Text, Container, ActionIcon, Center, useMantineTheme, Button, Flex, Popover, Kbd, Space, Divider } from "@mantine/core";
-import { useRef, useState } from "react";
+import superjson from 'superjson';
+import { Text, Container, ActionIcon, Center, useMantineTheme, Button, Flex, Popover, Kbd, Space, Divider, Box } from "@mantine/core";
+import { useRef } from "react";
 import MyDropzone from "@/components/dropzone/MyDropzone";
-import Board from "@/components/Board/Board";
+import DesignBoard from "@/components/Board/DesignBoard";
 import NewBoardModal from "@/components/Board/NewBoardModal";
 import { IconQuestionMark } from "@tabler/icons-react";
+import { useLocalStorage } from "@mantine/hooks";
+
 export default function PlaygroundPage() {
   const theme = useMantineTheme();
-  const [board, setBoard] = useState<string>("");
   const downloadRef = useRef<() => void>(() => { });
+  const [boardGrid, setBoardGrid] = useLocalStorage<string[][]>({
+    key: 'page-play-board-grid',
+    defaultValue: [[]],
+    serialize: superjson.stringify,
+    deserialize: (str) => (str === undefined ? [[]] : superjson.parse(str)),
+  });
+  const setBoard = (text: string) => {
+    if (text !== "") {
+      setBoardGrid(text.split('\n').map((row) => row.split(' ')));
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'center' }}>
       <Container style={{
@@ -22,17 +36,13 @@ export default function PlaygroundPage() {
           <Text fz="md" c="dimmed">Create and edit boards for your bots.</Text>
         </div>
         <Center style={{ flexGrow: 1, border: `2px dashed ${theme.colors.gray[4]}`, borderRadius: '8px', padding: '10px', overflow: 'auto' }}>
-          {board === "" && <MyDropzone setBoard={setBoard} />}
-          {board !== "" && <>
-
-            <Board board={board} downloadRef={downloadRef} />
-
-          </>}
+          {boardGrid.length === 0 && <MyDropzone setBoard={setBoard} />}
+          {boardGrid.length > 0 && <DesignBoard boardGrid={boardGrid} setBoardGrid={setBoardGrid} downloadRef={downloadRef} />}
         </Center>
         <Flex style={{ gap: '10px', justifyContent: 'center' }}>
           <NewBoardModal setBoard={setBoard} />
-          <Button onClick={() => setBoard("")} disabled={board === ""}>Delete Board</Button>
-          <Button onClick={() => downloadRef.current && downloadRef.current()} disabled={board === ""}>Download Board</Button>
+          <Button onClick={() => setBoardGrid([])} disabled={boardGrid.length === 0}>Delete Board</Button>
+          <Button onClick={() => downloadRef.current && downloadRef.current()} disabled={boardGrid.length === 0}>Download Board</Button>
         </Flex>
 
       </Container>

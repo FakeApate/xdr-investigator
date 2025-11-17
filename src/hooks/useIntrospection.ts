@@ -8,6 +8,7 @@ export function useIntrospection() {
     const commands = useIntrospectionStore((s) => s.commands);
     const loading = useIntrospectionStore((s) => s.loading);
     const error = useIntrospectionStore((s) => s.error);
+    const sendCommandUrl = useIntrospectionStore((s) => s.sendCommandUrl);
 
     useEffect(() => {
         if (commands.length === 0) {
@@ -15,5 +16,5 @@ export function useIntrospection() {
         }
     }, [commands.length, load]);
 
-    return { commands, loading, error };
+    return { commands, loading, error, sendCommandUrl };
 }
