@@ -1,0 +1,47 @@
+:local(.boardCell) {
+    border: 1px solid #555;
+    box-sizing: border-box;
+}
+
+:local(.boardCellFloor) {
+    background: #1e1e1e;
+}
+
+:local(.boardCellWall) {
+    background: #444;
+}
+
+:local(.boardCellStart) {
+    background: #0044cc;
+}
+
+:local(.boardCellTarget) {
+    background: #00cc44;
+}
+
+:local(.boardBot) {
+    position: absolute;
+    width: calc((100% / var(--cols)) * 0.6);
+    height: calc((100% / var(--rows)) * 0.6);
+    border-radius: 50%;
+    background: #ffcc00;
+    pointer-events: none;
+
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    transition: top 80ms linear, left 80ms linear;
+}
+
+:local(.boardWrapper) {
+    width: min(80vmin, 300px);
+    margin: 0 auto;
+}
+
+:local(.boardGrid) {
+    position: relative;
+    display: grid;
+    width: 100%;
+    border: 2px solid #444;
+    box-sizing: border-box;
+}

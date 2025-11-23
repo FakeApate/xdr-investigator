@@ -4,8 +4,7 @@ import {
   ColorSchemeScript,
   mantineHtmlProps,
 } from "@mantine/core";
-import { theme } from "@/theme";
-import AppLayout from "@/components/AppLayout/AppLayout";
+import { theme } from "@/shared/styles/theme";
 
 export const metadata = {
   title: "Mantine Next.js template",
@@ -25,7 +24,9 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="auto" theme={theme}><AppLayout>{children}</AppLayout></MantineProvider>
+        <MantineProvider defaultColorScheme="auto" theme={theme}>
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );
