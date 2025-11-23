@@ -5,3 +5,5 @@ export type BoardCommand =
   | { type: "StartRegister" }
   | { type: "TerminateRace" }
   | { type: "DeregisterBot"; botName: string }
+  | { type: "GetBoardLevels" }
+  | { type: "GetBoardLevelsInfo" }

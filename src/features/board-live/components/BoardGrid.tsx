@@ -4,12 +4,16 @@ import BoardCells from "./BoardCells";
 import { BotModel } from "@/features/board-live/types/BotModel";
 import classes from "./Board.module.scss"
 import { BoardPosition } from "@/features/board-live/types/BoardPosition";
+import { useElementSize } from "@mantine/hooks";
 
 export default function BoardGrid({ board, bots, start, end }: { board: boolean[][]; bots: BotModel[], start?: BoardPosition, end?: BoardPosition }) {
     const rows = board.length;
     const cols = board[0]?.length || 0;
+    const { ref, height, width } = useElementSize()
     return (
-        <Box className={classes.boardWrapper}>
+        <Box className={classes.boardWrapper} ref={ref} style={{
+            paddingLeft: (width - ((cols / rows) * height)) / 2
+        }}>
             <Box
                 className={classes.boardGrid}
                 style={
@@ -19,6 +23,7 @@ export default function BoardGrid({ board, bots, start, end }: { board: boolean[
                         aspectRatio: `${cols} / ${rows}`,
                         "--cols": cols,
                         "--rows": rows,
+                        maxHeight: height,
                     } as CSSProperties
                 }
             >

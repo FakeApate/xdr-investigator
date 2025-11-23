@@ -1,7 +1,17 @@
-import { NotFound } from "@/shared/ui/ErrorPages/404/NotFound";
+"use client";
+
+import BoardGallery from "@/features/boards-display/components/BoardGallery";
+import { Flex } from "@mantine/core";
 
 export default function BoardsPage() {
   return (
-    <NotFound />
+    <Flex style={{
+      flexGrow: 1,
+      height: "auto",
+      display: "flex",
+      padding: "var(--mantine-spacing-xl)",
+    }}>
+      <BoardGallery />
+    </Flex>
   );
 }

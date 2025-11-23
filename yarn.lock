@@ -719,6 +719,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mantine/carousel@npm:^8.3.9":
+  version: 8.3.9
+  resolution: "@mantine/carousel@npm:8.3.9"
+  peerDependencies:
+    "@mantine/core": 8.3.9
+    "@mantine/hooks": 8.3.9
+    embla-carousel: ">=8.0.0"
+    embla-carousel-react: ">=8.0.0"
+    react: ^18.x || ^19.x
+    react-dom: ^18.x || ^19.x
+  checksum: 10c0/8775b8c7b270ba92f4c18ae7538d622fdbb3bb7b80c1fe38b96334ea7e72e14af281a540d2052f2e8c33794d97f527759fd2e8f6f403e409299366fcaa4e801c
+  languageName: node
+  linkType: hard
+
 "@mantine/core@npm:^8.3.7":
   version: 8.3.7
   resolution: "@mantine/core@npm:8.3.7"
@@ -2091,6 +2105,34 @@ __metadata:
   version: 1.5.254
   resolution: "electron-to-chromium@npm:1.5.254"
   checksum: 10c0/a4db4124f7d1a44d13db14ea5b1137a50f21074694ca9463b4f541a0e8540ba8b619fdad1846b3ab4e53031bcfdea07618df8fe357c121a68d60fd44ffddd2ec
+  languageName: node
+  linkType: hard
+
+"embla-carousel-react@npm:^8.5.2":
+  version: 8.6.0
+  resolution: "embla-carousel-react@npm:8.6.0"
+  dependencies:
+    embla-carousel: "npm:8.6.0"
+    embla-carousel-reactive-utils: "npm:8.6.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.1 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+  checksum: 10c0/461b0c427a6fca62e730c7b39d08e9c55b01a2138c173d5b9ebf77ec92092a900b45ac384731c77382b48d5d65946994d3abba6e9899a66d6e16f8ddf191ed1c
+  languageName: node
+  linkType: hard
+
+"embla-carousel-reactive-utils@npm:8.6.0":
+  version: 8.6.0
+  resolution: "embla-carousel-reactive-utils@npm:8.6.0"
+  peerDependencies:
+    embla-carousel: 8.6.0
+  checksum: 10c0/33d07e6df4d8dec9b4fc95858838ea2d5e5df078039c05b2a342c05ba4979d8d18564a1c607da445fed744daf969a0b5a90124ce487a854e86ced6f0458b51e9
+  languageName: node
+  linkType: hard
+
+"embla-carousel@npm:8.6.0, embla-carousel@npm:^8.5.2":
+  version: 8.6.0
+  resolution: "embla-carousel@npm:8.6.0"
+  checksum: 10c0/f4c598e7be28b70340d31ffd2bebb2472db370b0c81d9b089bf9555cf618695f35dc4a0694565c994c9ab972731123063f945aa09ff485df0df761d79c6a08ef
   languageName: node
   linkType: hard
 
@@ -4232,6 +4274,7 @@ __metadata:
   dependencies:
     "@dnd-kit/core": "npm:^6.3.1"
     "@dnd-kit/modifiers": "npm:^9.0.0"
+    "@mantine/carousel": "npm:^8.3.9"
     "@mantine/core": "npm:^8.3.7"
     "@mantine/dropzone": "npm:^8.3.7"
     "@mantine/hooks": "npm:^8.3.7"
@@ -4239,6 +4282,8 @@ __metadata:
     "@types/node": "npm:^24.10.0"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
+    embla-carousel: "npm:^8.5.2"
+    embla-carousel-react: "npm:^8.5.2"
     eslint: "npm:^9.39.1"
     eslint-config-next: "npm:16.0.1"
     eslint-config-prettier: "npm:^10.1.8"

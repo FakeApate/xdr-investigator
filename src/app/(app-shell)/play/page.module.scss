@@ -11,7 +11,7 @@
         "board"
         "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: 5em 6fr 2fr;
+    grid-template-rows: 5em 6fr auto;
     flex-grow: 1;
 }
 
@@ -28,4 +28,6 @@
 
 :local(.GridBoard) {
     grid-area: board;
+    display: flex;
+
 }

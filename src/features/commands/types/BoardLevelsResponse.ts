@@ -1,0 +1,1 @@
+export type BoardLevelsResponse = Map<string, string>;

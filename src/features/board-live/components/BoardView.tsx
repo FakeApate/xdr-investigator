@@ -5,6 +5,7 @@ import { BoardStatusResponse } from "@/features/board-live/types/BoardStatusResp
 import { BotModel } from "@/features/board-live/types/BotModel";
 import BoardGrid from "./BoardGrid";
 import { BoardPosition } from "@/features/board-live/types/BoardPosition";
+import { useElementSize } from "@mantine/hooks";
 
 function equal2DBool(a: boolean[][], b: boolean[][]): boolean {
     if (a === b) return true;                 // same reference
@@ -30,7 +31,6 @@ export default function BoardView() {
     const rafRef = useRef<number | null>(null);
     const [targetPos, setTargetPos] = useState<BoardPosition | undefined>(undefined);
     const [startPos, setStartPos] = useState<BoardPosition | undefined>(undefined);
-
     useEffect(() => {
         start((status) => {
             if (!status) return;
@@ -73,5 +73,7 @@ export default function BoardView() {
         return <Box>Waiting for board…</Box>;
     }
 
-    return <BoardGrid board={board} bots={bots} start={startPos} end={targetPos} />;
+    return (
+        <BoardGrid board={board} bots={bots} start={startPos} end={targetPos} />
+    )
 }

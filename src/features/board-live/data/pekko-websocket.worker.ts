@@ -2,6 +2,7 @@
 
 import type { BoardCommand } from "@/features/commands/types/BoardCommand";
 import { BoardStatusResponse } from "@/features/board-live/types/BoardStatusResponse";
+import { wsLogger } from "@/features/logging/lib/loggers";
 
 export type PekkoWorkerIn =
     | { type: "INIT"; settings: { wsUrl: string; autoReconnect?: boolean } }
@@ -39,12 +40,14 @@ ctx.onmessage = (event: MessageEvent<PekkoWorkerIn>) => {
             wsUrl = msg.settings.wsUrl;
             shouldReconnect = msg.settings.autoReconnect ?? true;
             reconnectAttempt = 0;
+            wsLogger.debug("INIT received, connecting to WebSocket");
             clearReconnectTimer();
             connect();
             break;
         }
 
         case "CLOSE": {
+            wsLogger.debug("CLOSE received, closing WebSocket");
             shouldReconnect = false;
             clearReconnectTimer();
             if (socket) {
@@ -80,7 +83,7 @@ function connect() {
 
         socket.onmessage = (ev) => {
             const parsed = safeParseJson(ev.data);
-
+            wsLogger.debug({ parsed }, "Received WebSocket message");
             if (!parsed) {
                 ctx.postMessage({
                     type: "ERROR",
